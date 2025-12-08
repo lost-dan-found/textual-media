@@ -8,6 +8,7 @@ pyobjc = "*"
 pillow = "*"
 rich = "*"
 textual = "*"
+geopy = "*"
 
 [dev-packages]
 textual-dev = "*"

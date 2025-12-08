@@ -2885,7 +2885,6 @@
                 "sha256:73ff50c7c0c1c77c8243079283f4edb376f0f6442433aecb8ce7e6d0b92d1fe4",
                 "sha256:76bc51fe2e57d2b1be1f96c524b890b816e334ab4c1e45888799bfaab0021edd"
             ],
-            "index": "pypi",
             "markers": "python_full_version >= '3.8.0'",
             "version": "==14.2.0"
         },
@@ -2894,7 +2893,6 @@
                 "sha256:074d389ba8c6c98c74e2a4fe1493ea3a38f3ee5008697e98f71daa2cf8ab8fda",
                 "sha256:7efe618ec9197466b8fe536aefabb678edf30658b9dc58a763365d7daed12b62"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.9' and python_version < '4.0'",
             "version": "==6.8.0"
         },

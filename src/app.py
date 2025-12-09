@@ -12,7 +12,6 @@ class DashboardApp(App):
     CSS = """
     Screen {
         background: transparent;
-        align: center middle;
     }
 
     .box {
@@ -124,4 +123,4 @@ class DashboardApp(App):
 
 
 if __name__ == "__main__":
-    DashboardApp().run(inline=True)
+    DashboardApp().run()

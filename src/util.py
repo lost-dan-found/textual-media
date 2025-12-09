@@ -47,7 +47,7 @@ def _map_weather_code(code: int) -> str:
             0:  "Clear \uf522",                     # nf-weather-day_sunny
             1:  "Mainly clear \uf522",
             2:  "Partly cloudy \uf522",
-            3:  "Overcast \uf013",                  # nf-weather-cloudy
+            3:  "Overcast \ue312",                  # nf-weather-cloudy
 
             45: "Fog \ue313",                      # nf-weather-fog
             48: "Depositing rime fog \ue313",

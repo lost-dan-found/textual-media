@@ -3,10 +3,31 @@ from util import get_timezone, get_weather_details, get_location_details, update
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from textual.app import App, ComposeResult
-from textual.widgets import Digits, Static
+from textual.widgets import Digits, Static, Input
+from textual.screen import ModalScreen
 from textual.containers import Horizontal, Vertical
 
 LOCATION = "Boston"
+
+class LocationPrompt(ModalScreen):
+    def compose(self):
+        yield Static("Enter a location (city or address):", classes="box")
+        self.input = Input(placeholder="e.g. New York", id="location_input")
+        yield self.input
+
+    def on_mount(self):
+        self.set_focus(self.input)
+
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        new_loc = event.value.strip()
+        if new_loc:
+            # call the app to update location
+            try:
+                self.app.set_location(new_loc)
+            finally:
+                self.dismiss()
+        else:
+            self.dismiss()
 
 class DashboardApp(App):
     CSS = """
@@ -42,8 +63,9 @@ class DashboardApp(App):
         height: 100%;
         border: white;
         background: transparent;
-        padding: 0;
+        padding: 0 2;
         content-align: center middle;
+        text-align: center;
     }
 
     #clock {
@@ -63,6 +85,9 @@ class DashboardApp(App):
     }
 
     """
+
+    #add a key binding to open the location prompt
+    BINDINGS = [("ctrl+l", "open_location_prompt", "Set Location")]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,7 +146,19 @@ class DashboardApp(App):
         self.quote.border_title = update_greeting(self.timezone)
 
 
+    async def action_open_location_prompt(self) -> None:
+        """Open modal to set a new location (bound to Ctrl+L)."""
+        await self.push_screen(LocationPrompt())
 
+    def set_location(self, new_location: str) -> None:
+        """Update global LOCATION and refresh data/widgets."""
+        global LOCATION
+        LOCATION = new_location
+        # refresh location/timezone/weather
+        self.location_data = get_location_details(LOCATION)
+        self.timezone = get_timezone(self.location_data[0], self.location_data[1])
+        # trigger UI updates
+        self.update_all()
 
 if __name__ == "__main__":
     DashboardApp().run()
